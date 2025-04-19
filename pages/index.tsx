@@ -8,8 +8,7 @@ export default function Home() {
 
   useEffect(() => {
     const storedLang = localStorage.getItem("lang");
-    if (storedLang && translations[storedLang]) {
-      setLang(storedLang);
+    if (storedLang && Object.keys(translations).includes(storedLang)) {
     }
   }, []);
 
