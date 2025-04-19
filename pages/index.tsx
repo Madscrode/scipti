@@ -9,9 +9,10 @@ export default function Home() {
   useEffect(() => {
     const storedLang = localStorage.getItem("lang");
     if (storedLang && Object.keys(translations).includes(storedLang)) {
-    }
-  }, []);
-
+  setLang(storedLang);
+}
+}, []);
+    
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedLang = e.target.value;
     setLang(selectedLang);
