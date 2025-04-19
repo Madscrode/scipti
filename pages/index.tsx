@@ -12,7 +12,8 @@ export default function Home() {
       </header>
 
       <section className="mb-16">
-        <h2 className="text-2xl font-semibold mb-4">📊 Markedsoversigt</h2>
+        <h2 className="text-3xl font-bold text-blue-600">Markedsover­sigt</h2>
+
         <p className="text-gray-700">Her kommer grafer, aktier i fokus, indeks og AI-analyse.</p>
       </section>
 
