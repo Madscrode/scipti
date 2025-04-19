@@ -1,43 +1,68 @@
 import Head from "next/head";
-import Link from "next/link";
+import { useState, useEffect } from "react";
+import { translations } from "../translations";
 
 export default function Home() {
+  const [lang, setLang] = useState("en");
+
+  useEffect(() => {
+    const storedLang = localStorage.getItem("lang");
+    if (storedLang && translations[storedLang]) {
+      setLang(storedLang);
+    }
+  }, []);
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedLang = e.target.value;
+    setLang(selectedLang);
+    localStorage.setItem("lang", selectedLang);
+  };
+
+  const t = translations[lang];
+
   return (
     <>
       <Head>
-        <title>Scipti AI – Din Aktie Sidekick</title>
+        <title>{t.title}</title>
       </Head>
       <main className="max-w-screen-xl mx-auto px-6 py-10">
-        <header className="mb-12">
-          <h1 className="text-4xl font-bold mb-2">📈 Scipti AI</h1>
-          <p className="text-lg text-gray-600">Din AI-drevne platform til aktiemarkedet</p>
+        <header className="mb-12 flex justify-between items-center">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">📈 Scipti AI</h1>
+            <p className="text-lg text-gray-600">{t.subtitle}</p>
+          </div>
+          <select
+            onChange={handleLanguageChange}
+            value={lang}
+            className="border rounded px-2 py-1 text-sm"
+          >
+            <option value="da">🇩🇰 Dansk</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="no">🇳🇴 Norsk</option>
+            <option value="fi">🇫🇮 Suomi</option>
+            <option value="sv">🇸🇪 Svenska</option>
+          </select>
         </header>
 
         <section className="grid grid-cols-3 gap-8">
           <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-2xl font-semibold mb-2">🔍 Søg Aktier</h2>
-            <p>Find aktier og se realtidsdata</p>
-            <Link href="/stock/TSLA" className="text-blue-600 underline mt-2 inline-block">
-              Gå til eksempel: TSLA
-            </Link>
+            <h2 className="text-2xl font-semibold mb-2">🔍 {t.search}</h2>
+            <p>{t.search_desc}</p>
           </div>
-
           <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-2xl font-semibold mb-2">🤖 SciptiBot</h2>
-            <p>Stil spørgsmål og få AI-vurderinger på aktier</p>
+            <h2 className="text-2xl font-semibold mb-2">🤖 {t.ai}</h2>
+            <p>{t.ai_desc}</p>
           </div>
-
           <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-2xl font-semibold mb-2">💼 Min Portefølje</h2>
-            <p>Log ind og se dine aktier, performance og fordeling</p>
-            <Link href="/portfolio" className="text-blue-600 underline mt-2 inline-block">
-              Gå til portefølje
-            </Link>
+            <h2 className="text-2xl font-semibold mb-2">💼 {t.portfolio}</h2>
+            <p>{t.portfolio_desc}</p>
           </div>
         </section>
-
         <footer className="text-center text-gray-500 text-sm mt-16">
-          © 2025 Scipti AI. Alle rettigheder forbeholdes.
+          © 2025 Scipti AI. All rights reserved.
         </footer>
       </main>
     </>
