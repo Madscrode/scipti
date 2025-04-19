@@ -4,6 +4,7 @@ import { translations } from "../translations";
 
 export default function Home() {
   const [lang, setLang] = useState("en");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const storedLang = localStorage.getItem("lang");
@@ -25,43 +26,53 @@ export default function Home() {
       <Head>
         <title>{t.title}</title>
       </Head>
-      <main className="max-w-screen-xl mx-auto px-6 py-10">
-        <header className="mb-12 flex justify-between items-center">
-          <div>
-            <h1 className="text-4xl font-bold mb-2">📈 Scipti AI</h1>
-            <p className="text-lg text-gray-600">{t.subtitle}</p>
+      <main className="max-w-screen-xl mx-auto px-6 py-6">
+        <header className="flex justify-between items-center mb-10">
+          <h1 className="text-3xl font-bold">📈 Scipti AI</h1>
+          <div className="flex items-center gap-4">
+            <select
+              onChange={handleLanguageChange}
+              value={lang}
+              className="border rounded px-2 py-1 text-sm"
+            >
+              <option value="da">🇩🇰 Dansk</option>
+              <option value="en">🇬🇧 English</option>
+              <option value="de">🇩🇪 Deutsch</option>
+              <option value="fr">🇫🇷 Français</option>
+              <option value="es">🇪🇸 Español</option>
+              <option value="no">🇳🇴 Norsk</option>
+              <option value="fi">🇫🇮 Suomi</option>
+              <option value="sv">🇸🇪 Svenska</option>
+            </select>
+            <button
+              className="text-xl px-3 py-1 border rounded"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              ☰
+            </button>
           </div>
-          <select
-            onChange={handleLanguageChange}
-            value={lang}
-            className="border rounded px-2 py-1 text-sm"
-          >
-            <option value="da">🇩🇰 Dansk</option>
-            <option value="en">🇬🇧 English</option>
-            <option value="de">🇩🇪 Deutsch</option>
-            <option value="fr">🇫🇷 Français</option>
-            <option value="es">🇪🇸 Español</option>
-            <option value="no">🇳🇴 Norsk</option>
-            <option value="fi">🇫🇮 Suomi</option>
-            <option value="sv">🇸🇪 Svenska</option>
-          </select>
         </header>
 
-        <section className="grid grid-cols-3 gap-8">
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-2xl font-semibold mb-2">🔍 {t.search}</h2>
-            <p>{t.search_desc}</p>
-          </div>
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-2xl font-semibold mb-2">🤖 {t.ai}</h2>
-            <p>{t.ai_desc}</p>
-          </div>
-          <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="text-2xl font-semibold mb-2">💼 {t.portfolio}</h2>
-            <p>{t.portfolio_desc}</p>
-          </div>
-        </section>
-        <footer className="text-center text-gray-500 text-sm mt-16">
+        <p className="text-lg text-gray-600 mb-8">{t.subtitle}</p>
+
+        {menuOpen && (
+          <nav className="bg-white shadow rounded-lg p-6 mb-8">
+            <div className="mb-4">
+              <h2 className="text-xl font-semibold mb-1">🔍 {t.search}</h2>
+              <p className="text-sm text-gray-700">{t.search_desc}</p>
+            </div>
+            <div className="mb-4">
+              <h2 className="text-xl font-semibold mb-1">🤖 {t.ai}</h2>
+              <p className="text-sm text-gray-700">{t.ai_desc}</p>
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold mb-1">💼 {t.portfolio}</h2>
+              <p className="text-sm text-gray-700">{t.portfolio_desc}</p>
+            </div>
+          </nav>
+        )}
+
+        <footer className="text-center text-gray-500 text-sm mt-20">
           © 2025 Scipti AI. All rights reserved.
         </footer>
       </main>
